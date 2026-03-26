@@ -6,388 +6,1055 @@
     <title>界外 OUTLAW | 健身米糊</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
             --primary: #1a1a1a;
-            --accent: #2d8a4e;
+            --accent: #c9a96e;
             --text: #1a1a1a;
             --text-light: #666;
             --text-muted: #999;
             --border: #e8e4dc;
             --bg: #faf8f5;
             --bg-light: #f5f2ed;
-            --cream: #faf8f5;
+            --white: #ffffff;
         }
+
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.5;
-            font-size: 14px;
+            line-height: 1.6;
+            font-size: 15px;
         }
-        header { border-bottom: 1px solid var(--border); background: var(--bg); }
-        .header-top {
-            padding: 1rem 2.5rem;
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            font-size: 1.5rem;
+
+        .nav-logo {
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             text-decoration: none;
             color: var(--text);
         }
-        .logo span { color: var(--primary); }
-        .header-nav { display: flex; gap: 2rem; }
-        .header-nav a {
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
             text-decoration: none;
             color: var(--text);
             font-weight: 500;
             font-size: 0.9rem;
-            transition: color 0.2s;
+            transition: opacity 0.2s;
         }
-        .header-nav a:hover { color: var(--primary); }
-        .header-actions {
+
+        .nav-links a:hover { opacity: 0.6; }
+
+        .nav-actions {
             display: flex;
             gap: 1.5rem;
             align-items: center;
         }
-        .header-actions a {
+
+        .nav-actions a {
             text-decoration: none;
             color: var(--text);
             font-size: 0.9rem;
         }
-        .cart-btn {
+
+        .btn-primary {
             background: var(--text);
             color: white !important;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 0;
             font-weight: 500;
+            transition: all 0.3s;
         }
-        .sub-header {
-            padding: 0.75rem 2.5rem;
-            background: var(--bg-light);
-            border-bottom: 1px solid var(--border);
-            font-size: 0.85rem;
-            color: var(--text-light);
+
+        .btn-primary:hover {
+            background: var(--accent);
+            color: var(--text) !important;
         }
-        .main-container {
-            display: flex;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        .sidebar {
-            width: 240px;
-            padding: 2rem 1.5rem 2rem 2.5rem;
-            border-right: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-        .filter-section { margin-bottom: 2rem; }
-        .filter-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-        .filter-option {
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0;
-            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
             color: var(--text-light);
-            cursor: pointer;
-            transition: color 0.2s;
+            margin-bottom: 2rem;
+            max-width: 500px;
         }
-        .filter-option:hover { color: var(--text); }
-        .filter-option input {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--text);
+
+        .hero-btn {
+            display: inline-block;
+            background: var(--text);
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-        .filter-count {
-            margin-left: auto;
-            font-size: 0.8rem;
-            color: var(--text-light);
+
+        .hero-btn:hover {
+            background: var(--accent);
+            color: var(--text);
         }
-        .content {
-            flex: 1;
-            padding: 2rem 2.5rem;
+
+        .hero-image {
+            position: relative;
         }
-        .page-header { margin-bottom: 2rem; }
-        .page-header h1 {
-            font-size: 1.75rem;
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            padding: 6rem 2rem 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
             font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features */
+        .features {
+            padding: 0 2rem 6rem;
+            background: var(--bg);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
-        .page-header p {
+
+        .feature p {
             color: var(--text-light);
             font-size: 0.9rem;
         }
-        .sort-bar {
+
+        /* Products Section */
+        .products {
+            padding: 0 2rem 6rem;
+            background: var(--white);
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .products-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 3rem 0;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
-        .result-count {
+
+        .products-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .view-all {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
             font-size: 0.9rem;
-            color: var(--text-light);
         }
-        .sort-select {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            background: var(--bg);
-            cursor: pointer;
-        }
-        .product-grid {
+
+        .view-all:hover { text-decoration: underline; }
+
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
         }
+
         .product-card {
-            position: relative;
-            transition: transform 0.2s;
+            background: var(--bg);
+            transition: all 0.3s;
         }
-        .product-card:hover { transform: translateY(-4px); }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
         .product-image {
             position: relative;
             aspect-ratio: 1;
-            background: #fff;
-            border-radius: 0;
+            background: var(--white);
             overflow: hidden;
-            margin-bottom: 1rem;
         }
+
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: transform 0.5s;
         }
-        .product-card:hover .product-image img { transform: scale(1.05); }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
         .product-badge {
             position: absolute;
-            top: 0.75rem;
-            left: 0.75rem;
+            top: 1rem;
+            left: 1rem;
             background: var(--text);
             color: white;
-            padding: 0.25rem 0.6rem;
-            border-radius: 0;
-            font-size: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        .product-badge.sold-out { background: var(--text-muted); }
-        .product-badge.new { background: var(--accent); }
+
+        .product-badge.new { background: #2d8a4e; }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
         .product-info h3 {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
-            line-height: 1.4;
         }
-        .product-info h3 a {
-            text-decoration: none;
+
+        .product-info .subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-stat {
+            text-align: center;
+        }
+
+        .about-stat .number {
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--text);
         }
-        .product-info h3 a:hover { color: var(--primary); }
-        .product-subtitle {
+
+        .about-stat .label {
             font-size: 0.85rem;
             color: var(--text-light);
-            margin-bottom: 0.5rem;
         }
-        .product-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.5rem;
+
+        /* Nutrition Section */
+        .nutrition {
+            padding: 6rem 2rem;
+            background: var(--white);
         }
-        .product-reviews {
-            font-size: 0.8rem;
-            color: var(--text-light);
+
+        .nutrition-container {
+            max-width: 1000px;
+            margin: 0 auto;
         }
-        .product-reviews::before {
-            content: '★ ';
-            color: var(--text);
+
+        .nutrition-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
-        .product-price {
-            font-size: 1rem;
+
+        .nutrition-header h2 {
+            font-size: 2rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .nutrition-header p {
+            color: var(--text-light);
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .nutrition-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .nutrition-item .value {
+            font-size: 2.5rem;
+            font-weight: 800;
             color: var(--text);
         }
-        .product-price .original {
-            text-decoration: line-through;
+
+        .nutrition-item .unit {
+            font-size: 1rem;
             color: var(--text-light);
-            font-weight: 400;
-            margin-left: 0.5rem;
-            font-size: 0.9rem;
         }
-        .quick-add {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
-            background: white;
+
+        .nutrition-item .label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .ingredients {
+            background: var(--bg);
+            padding: 2rem;
             border: 1px solid var(--border);
+        }
+
+        .ingredients h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .ingredients p {
+            color: var(--text-light);
+        }
+
+        /* How to Use */
+        .how-to-use {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .how-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .how-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .how-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--text);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.2s;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
         }
-        .product-card:hover .quick-add { opacity: 1; }
-        .quick-add:hover {
-            background: var(--primary);
-            border-color: var(--primary);
+
+        .step h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .review {
+            padding: 2rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .review-stars {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .review-author {
+            font-weight: 600;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 6rem 2rem;
+            background: var(--bg);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-answer {
+            color: var(--text-light);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--text);
             color: white;
         }
-        @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .product-grid {
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover {
+            background: white;
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            background: var(--text);
+            color: white;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .footer-social a:hover { opacity: 1; }
+
+        .footer-column h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .features-grid,
+            .products-grid,
+            .nutrition-grid,
+            .steps,
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-container {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        @media (max-width: 600px) {
-            .header-nav { display: none; }
-            .product-grid {
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .features-grid,
+            .products-grid,
+            .nutrition-grid,
+            .steps,
+            .reviews-grid {
                 grid-template-columns: 1fr;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-top">
-            <a href="#" class="logo">界外 <span>OUTLAW</span></a>
-            <nav class="header-nav">
-                <a href="#">產品</a>
-                <a href="#">關於</a>
-                <a href="#">聯絡</a>
-            </nav>
-            <div class="header-actions">
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">界外 OUTLAW</a>
+            <ul class="nav-links">
+                <li><a href="#products">產品</a></li>
+                <li><a href="#about">關於</a></li>
+                <li><a href="#nutrition">營養</a></li>
+                <li><a href="#faq">常見問題</a></li>
+                <li><a href="#contact">聯絡</a></li>
+            </ul>
+            <div class="nav-actions">
                 <a href="#">搜尋</a>
-                <a href="#">帳戶</a>
-                <a href="#" class="cart-btn">購物車 (0)</a>
+                <a href="#" class="btn-primary">購物車 (0)</a>
             </div>
         </div>
-        <div class="sub-header">
-            香港本地品牌 · 泰國茉莉香米製造 · 健身專用米糊
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>突破界限<br>純粹力量</h1>
+                <p>界外 OUTLAW 專為健身愛好者打造的即食純米糊。泰國茉莉香米製造，簡單純粹，專注訓練後的碳水補充。</p>
+                <a href="#products" class="hero-btn">探索產品</a>
+            </div>
+            <div class="hero-image">
+                <img src="products/product-orange.png" alt="OUTLAW 即食純米糊">
+            </div>
         </div>
-    </header>
+    </section>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <div class="filter-section">
-                <div class="filter-title">供貨狀態</div>
-                <label class="filter-option">
-                    <input type="checkbox" checked>
-                    <span>有現貨</span>
-                    <span class="filter-count">(3)</span>
-                </label>
+    <!-- Features -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>快速補充</h3>
+                <p>訓練後30分鐘內快速補充肝醣</p>
             </div>
-            <div class="filter-section">
-                <div class="filter-title">容量</div>
-                <label class="filter-option">
-                    <input type="checkbox" checked>
-                    <span>500g</span>
-                    <span class="filter-count">(3)</span>
-                </label>
+            <div class="feature">
+                <div class="feature-icon">🌾</div>
+                <h3>優質原料</h3>
+                <p>精選泰國茉莉香米</p>
             </div>
-            <div class="filter-section">
-                <div class="filter-title">系列</div>
-                <label class="filter-option">
-                    <input type="checkbox" checked>
-                    <span>經典系列</span>
-                    <span class="filter-count">(2)</span>
-                </label>
-                <label class="filter-option">
-                    <input type="checkbox" checked>
-                    <span>特別版</span>
-                    <span class="filter-count">(1)</span>
-                </label>
+            <div class="feature">
+                <div class="feature-icon">💪</div>
+                <h3>健身專用</h3>
+                <p>專為增肌期設計的碳水比例</p>
             </div>
-        </aside>
+            <div class="feature">
+                <div class="feature-icon">🥤</div>
+                <h3>即沖即飲</h3>
+                <p>無需烹煮，省時方便</p>
+            </div>
+        </div>
+    </section>
 
-        <main class="content">
-            <div class="page-header">
-                <h1>健身米糊</h1>
-                <p>專為訓練後補充設計的純米糊產品</p>
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="products-container">
+            <div class="products-header">
+                <h2>精選產品</h2>
+                <a href="#" class="view-all">查看全部 →</a>
             </div>
-
-            <div class="sort-bar">
-                <span class="result-count">顯示 3 個產品</span>
-                <select class="sort-select">
-                    <option>精選</option>
-                    <option>價格：低到高</option>
-                    <option>價格：高到低</option>
-                    <option>最新上架</option>
-                </select>
-            </div>
-
-            <div class="product-grid">
-                <article class="product-card">
+            <div class="products-grid">
+                <div class="product-card">
                     <div class="product-image">
                         <span class="product-badge">熱賣</span>
-                        <img src="products/product-orange.png" alt="即食純米糊 - 經典版">
-                        <button class="quick-add">+</button>
+                        <img src="products/product-orange.png" alt="即食純米糊">
                     </div>
                     <div class="product-info">
-                        <h3><a href="#">即食純米糊</a></h3>
-                        <p class="product-subtitle">泰國茉莉香米 · 經典版</p>
-                        <div class="product-meta">
-                            <span class="product-reviews">128 評價</span>
-                        </div>
+                        <h3>即食純米糊</h3>
+                        <p class="subtitle">泰國茉莉香米 · 經典版</p>
                         <div class="product-price">HK$128</div>
                     </div>
-                </article>
-
-                <article class="product-card">
+                </div>
+                <div class="product-card">
                     <div class="product-image">
                         <span class="product-badge new">新品</span>
-                        <img src="products/product-green.png" alt="即食純米糊 - 清新版">
-                        <button class="quick-add">+</button>
+                        <img src="products/product-green.png" alt="即食純米糊">
                     </div>
                     <div class="product-info">
-                        <h3><a href="#">即食純米糊</a></h3>
-                        <p class="product-subtitle">泰國茉莉香米 · 清新版</p>
-                        <div class="product-meta">
-                            <span class="product-reviews">45 評價</span>
-                        </div>
+                        <h3>即食純米糊</h3>
+                        <p class="subtitle">泰國茉莉香米 · 清新版</p>
                         <div class="product-price">HK$128</div>
                     </div>
-                </article>
-
-                <article class="product-card">
+                </div>
+                <div class="product-card">
                     <div class="product-image">
                         <span class="product-badge">限量</span>
-                        <img src="products/product-orange-alt.png" alt="即食純米糊 - 特別版">
-                        <button class="quick-add">+</button>
+                        <img src="products/product-orange-alt.png" alt="即食純米糊">
                     </div>
                     <div class="product-info">
-                        <h3><a href="#">即食純米糊</a></h3>
-                        <p class="product-subtitle">泰國茉莉香米 · 特別版</p>
-                        <div class="product-meta">
-                            <span class="product-reviews">23 評價</span>
-                        </div>
+                        <h3>即食純米糊</h3>
+                        <p class="subtitle">泰國茉莉香米 · 特別版</p>
                         <div class="product-price">HK$138</div>
                     </div>
-                </article>
+                </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="images/gym-scene.jpg" alt="健身場景">
+            </div>
+            <div class="about-content">
+                <h2>為什麼選擇<br>界外 OUTLAW？</h2>
+                <p>我們相信健身補充品應該簡單純粹。沒有花哨的添加，沒有複雜的配方 — 只有優質的泰國茉莉香米，為你的肌肉提供訓練後所需的乾淨碳水。</p>
+                <p>界外，意味著突破常規、超越界限。我們為那些願意付出額外努力、追求卓越的健身愛好者而設。</p>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="number">100%</div>
+                        <div class="label">純天然成分</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="number">500g</div>
+                        <div class="label">大包裝容量</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="number">0</div>
+                        <div class="label">人工添加</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition -->
+    <section class="nutrition" id="nutrition">
+        <div class="nutrition-container">
+            <div class="nutrition-header">
+                <h2>營養成分</h2>
+                <p>每份 50g 的營養資訊</p>
+            </div>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <div class="value">185</div>
+                    <div class="unit">kcal</div>
+                    <div class="label">卡路里</div>
+                </div>
+                <div class="nutrition-item">
+                    <div class="value">42g</div>
+                    <div class="unit"></div>
+                    <div class="label">碳水化合物</div>
+                </div>
+                <div class="nutrition-item">
+                    <div class="value">3.5g</div>
+                    <div class="unit"></div>
+                    <div class="label">蛋白質</div>
+                </div>
+                <div class="nutrition-item">
+                    <div class="value">0.5g</div>
+                    <div class="unit"></div>
+                    <div class="label">脂肪</div>
+                </div>
+            </div>
+            <div class="ingredients">
+                <h3>成分</h3>
+                <p>泰國茉莉香米粉、麥芽糊精、天然香料</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="how-to-use">
+        <div class="how-container">
+            <div class="how-header">
+                <h2>食用方法</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>加水</h3>
+                    <p>加入 200-250ml 水或牛奶</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>加粉</h3>
+                    <p>加入 1 勺（50g）米糊粉</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>搖勻</h3>
+                    <p>搖勻或攪拌至溶解</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>飲用</h3>
+                    <p>訓練後 30 分鐘內飲用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <div class="testimonials-header">
+                <h2>用戶評價</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">「訓練後飲用非常方便，口感順滑，唔會有粉粒感。推薦！」</p>
+                    <div class="review-author">— Alex, 健身教練</div>
+                </div>
+                <div class="review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">「終於搵到一款成份簡單的米糊，冇亂咁添加其他嘢。」</p>
+                    <div class="review-author">— 小陳, 健美運動員</div>
+                </div>
+                <div class="review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">「大包裝好抵，一包可以用成個月。會再回購！」</p>
+                    <div class="review-author">— Jason, CrossFit 愛好者</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="faq-container">
+            <div class="faq-header">
+                <h2>常見問題</h2>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">什麼時候飲用最好？</div>
+                <div class="faq-answer">建議在訓練後 30 分鐘內飲用，以達到最佳的碳水補充效果。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">可以用牛奶沖調嗎？</div>
+                <div class="faq-answer">可以，用牛奶沖調會增加蛋白質含量，口感更順滑。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">幾耐可以收到貨？</div>
+                <div class="faq-answer">香港地區一般 2-3 個工作天送達。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">有冇添加糖？</div>
+                <div class="faq-answer">我們的米糊唔添加額外糖分，只含來自米本身的天然碳水化合物。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>聯絡我們</h2>
+            <p>有任何問題或合作查詢，歡迎與我們聯絡</p>
+            <div class="contact-links">
+                <a href="mailto:hello@outlaw.hk">hello@outlaw.hk</a>
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>界外 OUTLAW</h3>
+                <p>專為健身愛好者打造的即食純米糊品牌。突破界限，純粹力量。</p>
+                <div class="footer-social">
+                    <a href="#">IG</a>
+                    <a href="#">FB</a>
+                    <a href="#">YT</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>產品</h4>
+                <ul>
+                    <li><a href="#">即食純米糊</a></li>
+                    <li><a href="#">清新版</a></li>
+                    <li><a href="#">特別版</a></li>
+                    <li><a href="#">試用裝</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>關於</h4>
+                <ul>
+                    <li><a href="#">品牌故事</a></li>
+                    <li><a href="#">營養資訊</a></li>
+                    <li><a href="#">常見問題</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>幫助</h4>
+                <ul>
+                    <li><a href="#">送貨資訊</a></li>
+                    <li><a href="#">退換政策</a></li>
+                    <li><a href="#">私隱政策</a></li>
+                    <li><a href="#">使用條款</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 界外 OUTLAW. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>
