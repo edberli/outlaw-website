@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>界外 OUTLAW | 健身米糊</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a1a1a;
+            --accent: #2d8a4e;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --text-muted: #999;
+            --border: #e8e4dc;
+            --bg: #faf8f5;
+            --bg-light: #f5f2ed;
+            --cream: #faf8f5;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        header { border-bottom: 1px solid var(--border); background: var(--bg); }
+        .header-top {
+            padding: 1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .logo span { color: var(--primary); }
+        .header-nav { display: flex; gap: 2rem; }
+        .header-nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .header-nav a:hover { color: var(--primary); }
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .header-actions a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .cart-btn {
+            background: var(--text);
+            color: white !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .sub-header {
+            padding: 0.75rem 2.5rem;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        .main-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .sidebar {
+            width: 240px;
+            padding: 2rem 1.5rem 2rem 2.5rem;
+            border-right: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .filter-section { margin-bottom: 2rem; }
+        .filter-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .filter-option:hover { color: var(--text); }
+        .filter-option input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--text);
+        }
+        .filter-count {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .content {
+            flex: 1;
+            padding: 2rem 2.5rem;
+        }
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .page-header p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .sort-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .result-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: var(--bg);
+            cursor: pointer;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-image {
+            position: relative;
+            aspect-ratio: 1;
+            background: #fff;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .product-card:hover .product-image img { transform: scale(1.05); }
+        .product-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--text);
+            color: white;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .product-badge.sold-out { background: var(--text-muted); }
+        .product-badge.new { background: var(--accent); }
+        .product-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+        .product-info h3 a {
+            text-decoration: none;
+            color: var(--text);
+        }
+        .product-info h3 a:hover { color: var(--primary); }
+        .product-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .product-reviews {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .product-reviews::before {
+            content: '★ ';
+            color: var(--text);
+        }
+        .product-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .product-price .original {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .quick-add {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+        }
+        .product-card:hover .quick-add { opacity: 1; }
+        .quick-add:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .header-nav { display: none; }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="#" class="logo">界外 <span>OUTLAW</span></a>
+            <nav class="header-nav">
+                <a href="#">產品</a>
+                <a href="#">關於</a>
+                <a href="#">聯絡</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#">搜尋</a>
+                <a href="#">帳戶</a>
+                <a href="#" class="cart-btn">購物車 (0)</a>
+            </div>
+        </div>
+        <div class="sub-header">
+            香港本地品牌 · 泰國茉莉香米製造 · 健身專用米糊
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <div class="filter-title">供貨狀態</div>
+                <label class="filter-option">
+                    <input type="checkbox" checked>
+                    <span>有現貨</span>
+                    <span class="filter-count">(3)</span>
+                </label>
+            </div>
+            <div class="filter-section">
+                <div class="filter-title">容量</div>
+                <label class="filter-option">
+                    <input type="checkbox" checked>
+                    <span>500g</span>
+                    <span class="filter-count">(3)</span>
+                </label>
+            </div>
+            <div class="filter-section">
+                <div class="filter-title">系列</div>
+                <label class="filter-option">
+                    <input type="checkbox" checked>
+                    <span>經典系列</span>
+                    <span class="filter-count">(2)</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" checked>
+                    <span>特別版</span>
+                    <span class="filter-count">(1)</span>
+                </label>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="page-header">
+                <h1>健身米糊</h1>
+                <p>專為訓練後補充設計的純米糊產品</p>
+            </div>
+
+            <div class="sort-bar">
+                <span class="result-count">顯示 3 個產品</span>
+                <select class="sort-select">
+                    <option>精選</option>
+                    <option>價格：低到高</option>
+                    <option>價格：高到低</option>
+                    <option>最新上架</option>
+                </select>
+            </div>
+
+            <div class="product-grid">
+                <article class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">熱賣</span>
+                        <img src="products/product-orange.png" alt="即食純米糊 - 經典版">
+                        <button class="quick-add">+</button>
+                    </div>
+                    <div class="product-info">
+                        <h3><a href="#">即食純米糊</a></h3>
+                        <p class="product-subtitle">泰國茉莉香米 · 經典版</p>
+                        <div class="product-meta">
+                            <span class="product-reviews">128 評價</span>
+                        </div>
+                        <div class="product-price">HK$128</div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">新品</span>
+                        <img src="products/product-green.png" alt="即食純米糊 - 清新版">
+                        <button class="quick-add">+</button>
+                    </div>
+                    <div class="product-info">
+                        <h3><a href="#">即食純米糊</a></h3>
+                        <p class="product-subtitle">泰國茉莉香米 · 清新版</p>
+                        <div class="product-meta">
+                            <span class="product-reviews">45 評價</span>
+                        </div>
+                        <div class="product-price">HK$128</div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">限量</span>
+                        <img src="products/product-orange-alt.png" alt="即食純米糊 - 特別版">
+                        <button class="quick-add">+</button>
+                    </div>
+                    <div class="product-info">
+                        <h3><a href="#">即食純米糊</a></h3>
+                        <p class="product-subtitle">泰國茉莉香米 · 特別版</p>
+                        <div class="product-meta">
+                            <span class="product-reviews">23 評價</span>
+                        </div>
+                        <div class="product-price">HK$138</div>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
